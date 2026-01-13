@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title> Те руки </title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+  <!-- Секция 1: О компании -->
+  <section id="hero">
+    <div class="container fade-in">
+      <h1>"ТЕ РУКИ" сделают ремонт за вас</h1>
+      <p>
+        Вы заранее знаете итоговую стоимость. 
+        Гарантия 12 месяцев. 
+        Материалы закупаем и доставляем сами.
+      </p>
+
+      <a href="#calculator-section" class="scroll-btn">Оставить заявку</a>
+
+      <div class="fade-in">
+        <h2>Наши пакеты ремонта</h2>
+        <div class="packages">
+          <div class="package">
+            <h3>Эконом</h3>
+            <div class="price">от 20 000 ₽/м²</div>
+            <p>Базовые материалы, чистовая отделка, фиксированная смета.</p>
+          </div>
+          <div class="package">
+            <h3>Комфорт</h3>
+            <div class="price">от 22 000 ₽/м²</div>
+            <p>Дизайн-проект в подарок, улучшенные материалы, гарантия 1 год.</p>
+          </div>
+          <div class="package">
+            <h3>Премиум</h3>
+            <div class="price">от 35 000 ₽/м²</div>
+            <p>Индивидуальный дизайн, авторский надзор, материалы премиум-класса.</p>
+          </div>
+        </div>
+        <div class="package">
+            <h3>Санузел под ключ</h3>
+            <div class="price">от 250 000 ₽</div>
+            <p>Ремонт сан узла под ключ с плной комплектовкой всеми материалами и сантехникой</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-in">
+        <h2>Примеры наших работ</h2>
+        <div class="carousel">
+          <div class="carousel-inner" id="carousel">
+            <div class="carousel-item"><img src="{% static 'images/BORL8992-HDR.jpg' %}" alt="Пожарных и спасателей"><div class="caption">Пожарных и спасателей, 3-комнатная, 109 м²</div></div>
+            <div class="carousel-item"><img src="{% static 'images/BORL9084-HDR.jpg' %}" alt="Пожарных и спасателей"><div class="caption">Пожарных и спасателей, 3-комнатная, 109 м²</div></div>
+            <div class="carousel-item"><img src="{% static 'images/BORL9160-HDR.jpg' %}" alt="Пожарных и спасателей"><div class="caption">Пожарных и спасателей, 3-комнатная, 109 м²</div></div>
+          </div>
+          <div class="carousel-controls">
+            <button onclick="prevSlide()">❮</button>
+            <button onclick="nextSlide()">❯</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Секция 2: Форма + калькулятор -->
+  <section id="calculator-section" class="fade-in">
+    <div class="container">
+      <div class="form-group">
+        <h2>Оставьте заявку</h2>
+        <input type="text" id="name" placeholder="Ваше имя" required>
+        <input type="tel" id="phone" placeholder="Телефон" required>
+        <select id="package-select" required>
+          <option value="">Выберите пакет</option>
+          <option value="econom">Эконом</option>
+          <option value="comfort">Комфорт</option>
+          <option value="premium">Премиум</option>
+        </select>
+        <button onclick="submitForm()">Отправить заявку</button>
+        <div id="form-result"></div>
+      </div>
+
+      <div class="calc-group">
+        <h2>Калькулятор ремонта</h2>
+        <label>Площадь квартиры (м²):</label>
+        <input type="number" id="area" min="20" value="50" oninput="calculate()">
+        <label>Пакет ремонта:</label>
+        <select id="calc-package" onchange="calculate()">
+          <option value="15000">Эконом — от 15 000 ₽/м²</option>
+          <option value="22000" selected>Комфорт — от 22 000 ₽/м²</option>
+          <option value="35000">Премиум — от 35 000 ₽/м²</option>
+        </select>
+        <div class="result">Итого: <span id="total">1 100 000</span></div>
+        <small>* Расчёт ориентировочный. Точную стоимость уточнит замерщик.</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- Кнопка "Наверх" -->
+  <button id="back-to-top" title="Наверх">↑</button>
+
+  <!-- Единственный вызов JS -->
+  <script src="{% static 'js/main.js' %}" defer></script>
+</body>
+</html>
