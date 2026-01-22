@@ -4,15 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title> Те руки </title>
+  <title>Этажи.Ремонт</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+  <!-- Динамический фон -->
+  <div id="dynamic-bg"></div>
 
   <!-- Секция 1: О компании -->
   <section id="hero">
     <div class="container fade-in">
-      <h1>"ТЕ РУКИ" сделают ремонт за вас</h1>
+      <h1>ЭТАЖИ РЕМОНТ</h1>
       <p>
         Вы заранее знаете итоговую стоимость. 
         Гарантия 12 месяцев. 
@@ -39,11 +41,10 @@
             <div class="price">от 35 000 ₽/м²</div>
             <p>Индивидуальный дизайн, авторский надзор, материалы премиум-класса.</p>
           </div>
-        </div>
-        <div class="package">
+          <div class="package">
             <h3>Санузел под ключ</h3>
             <div class="price">от 250 000 ₽</div>
-            <p>Ремонт сан узла под ключ с плной комплектовкой всеми материалами и сантехникой</p>
+            <p>Ремонт сан узла под ключ с полной комплектовкой всеми материалами и сантехникой</p>
           </div>
         </div>
       </div>
@@ -100,6 +101,27 @@
 
   <!-- Кнопка "Наверх" -->
   <button id="back-to-top" title="Наверх">↑</button>
+
+  <!-- Передача путей к фонам в JS -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bgImages = [
+      "{% static 'images/bg1.jpg' %}",
+      "{% static 'images/bg2.jpg' %}",
+      "{% static 'images/bg3.jpg' %}"
+    ];
+    let currentIndex = 0;
+    const bgElement = document.getElementById('dynamic-bg');
+    if (bgElement && bgImages.length) {
+      function changeBackground() {
+        bgElement.style.backgroundImage = `url(${bgImages[currentIndex]})`;
+        currentIndex = (currentIndex + 1) % bgImages.length;
+      }
+      changeBackground();
+      setInterval(changeBackground, 7000);
+    }
+  });
+</script>
 
   <!-- Единственный вызов JS -->
   <script src="{% static 'js/main.js' %}" defer></script>

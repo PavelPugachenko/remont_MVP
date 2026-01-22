@@ -36,8 +36,7 @@ services:
       - etaji_network
 
 volumes:
-  postgres_data:  # ← вот так правильно: имя + двоеточие
-
+  postgres_data:  
 networks:
   etaji_network:
     driver: bridge
