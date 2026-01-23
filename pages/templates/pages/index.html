@@ -102,26 +102,28 @@
   <!-- Кнопка "Наверх" -->
   <button id="back-to-top" title="Наверх">↑</button>
 
-  <!-- Передача путей к фонам в JS -->
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const bgImages = [
-      "{% static 'images/bg1.jpg' %}",
-      "{% static 'images/bg2.jpg' %}",
-      "{% static 'images/bg3.jpg' %}"
-    ];
-    let currentIndex = 0;
-    const bgElement = document.getElementById('dynamic-bg');
-    if (bgElement && bgImages.length) {
-      function changeBackground() {
-        bgElement.style.backgroundImage = `url(${bgImages[currentIndex]})`;
-        currentIndex = (currentIndex + 1) % bgImages.length;
+  <!-- Динамический фон (JS) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const bgImages = [
+        "{% static 'images/bg1.jpg' %}",
+        "{% static 'images/bg2.jpg' %}",
+        "{% static 'images/bg3.jpg' %}"
+      ];
+      let currentIndex = 0;
+      const bgElement = document.getElementById('dynamic-bg');
+
+      if (bgElement && bgImages.length > 0) {
+        function changeBackground() {
+          bgElement.style.backgroundImage = `url(${bgImages[currentIndex]})`;
+          currentIndex = (currentIndex + 1) % bgImages.length;
+        }
+
+        changeBackground();
+        setInterval(changeBackground, 7000);
       }
-      changeBackground();
-      setInterval(changeBackground, 7000);
-    }
-  });
-</script>
+    });
+  </script>
 
   <!-- Единственный вызов JS -->
   <script src="{% static 'js/main.js' %}" defer></script>

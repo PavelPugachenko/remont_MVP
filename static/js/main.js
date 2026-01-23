@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   // === Динамический фон ===
-  const bgImages = window.BG_IMAGES || [];
+  const bgImages = [
+    "/static/images/bg1.jpg",
+    "/static/images/bg2.jpg",
+    "/static/images/bg3.jpg"
+  ];
   let currentIndex = 0;
   const bgElement = document.getElementById('dynamic-bg');
 
@@ -14,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(changeBackground, 7000);
   }
 
-  // === Карусель (если не реализована) ===
+  // === Карусель ===
   let currentSlide = 0;
   const slides = document.querySelectorAll('.carousel-item');
   if (slides.length > 0) {
@@ -23,14 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
         slide.style.display = i === index ? 'block' : 'none';
       });
     }
+
     window.nextSlide = () => {
       currentSlide = (currentSlide + 1) % slides.length;
       showSlide(currentSlide);
     };
+
     window.prevSlide = () => {
       currentSlide = (currentSlide - 1 + slides.length) % slides.length;
       showSlide(currentSlide);
     };
+
     showSlide(currentSlide);
   }
 
@@ -42,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('total').textContent = total.toLocaleString('ru-RU');
   };
 
-  // === Отправка формы (заглушка) ===
+  // === Отправка формы ===
   window.submitForm = () => {
     const name = document.getElementById('name').value;
     const phone = document.getElementById('phone').value;
@@ -59,15 +66,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // === Кнопка "Наверх" ===
   const backToTopButton = document.getElementById('back-to-top');
   if (backToTopButton) {
-    window.addEventListener('scroll', () => {
+    const toggleButton = () => {
       backToTopButton.style.display = window.scrollY > 300 ? 'block' : 'none';
-    });
+    };
+    window.addEventListener('scroll', toggleButton);
     backToTopButton.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+    toggleButton(); // проверить при загрузке
   }
 
-  // Запустить калькулятор при загрузке
+  // Запустить калькулятор
   if (document.getElementById('area')) {
     calculate();
   }
