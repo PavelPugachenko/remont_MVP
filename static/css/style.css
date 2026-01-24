@@ -1,16 +1,27 @@
-/* Общие стили */
+/* === ПРЕМИУМ-СТИЛЬ ДЛЯ ЭТАЖИ.РЕМОНТ === */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+:root {
+  --bg-body: #faf9f6;
+  --text: #1a1a1a;
+  --accent: #5e5446;
+  --button: #2d2b27;
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --shadow: rgba(0, 0, 0, 0.06);
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
-  line-height: 1.6;
-  color: #222222;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--text);
+  background-color: var(--bg-body);
   scroll-behavior: smooth;
-  background: #faf8f3; 
+}
 
 .container {
   max-width: 1200px;
@@ -19,64 +30,68 @@ body {
 }
 
 section {
-  padding: 80px 20px;
+  padding: 120px 20px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
-/* Геро-секция */
+/* === Геро-секция === */
 #hero {
-  background: rgba(255, 255, 255, 0.5); /* Полупрозрачный белый блок */
-  color: #222222;
+  background: var(--card-bg);
+  color: var(--text);
   text-align: center;
   padding: 60px 40px !important;
   width: 100%;
-  max-width: 1300px;
-  margin: 90px auto 70px;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  max-width: 1200px;
+  margin: 60px auto;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
 }
 
 #hero h1 {
-  font-size: 2.8rem;
-  margin-bottom: 20px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #5a4e40; /* Бежево-коричневый заголовок */
+  font-size: 3.2rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: var(--accent);
+  letter-spacing: -0.5px;
 }
 
 #hero p {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   max-width: 700px;
   margin: 0 auto 40px;
-  color: #555;
+  color: #444;
+  font-weight: 300;
 }
 
+/* === Кнопка CTA === */
 .scroll-btn {
   display: inline-block;
-  padding: 14px 32px;
-  background: #444444; /* Графитовая кнопка */
+  padding: 16px 40px;
+  background: var(--button);
   color: white;
   text-decoration: none;
   border-radius: 50px;
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-weight: 500;
+  font-size: 1.15rem;
   transition: all 0.3s ease;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.5px;
 }
 
 .scroll-btn:hover {
-  background: #333333; /* Темнее при наведении */
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  background: #1c1a18;
 }
 
-/* Анимация при скролле */
+/* === Анимация появления === */
 .fade-in {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .fade-in.appear {
@@ -84,118 +99,98 @@ section {
   transform: translateY(0);
 }
 
-/* Пакеты */
+/* === Заголовки с акцентом === */
+h2 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 50px 0 30px;
+  position: relative;
+  display: inline-block;
+}
+
+h2::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--accent);
+  margin-top: 12px;
+  border-radius: 2px;
+}
+
+/* === Пакеты === */
 .packages {
   display: flex;
-  gap: 25px;
+  gap: 30px;
   flex-wrap: wrap;
   justify-content: center;
   margin: 50px 0;
 }
 
 .package {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 30px;
-  width: 300px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: 320px;
   text-align: center;
-  border: 1px solid #e0dcd5; /* Светло-бежевая рамка */
+  transition: transform 0.3s ease;
 }
 
 .package:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
 }
 
 .package h3 {
-  color: #5a4e40; /* Бежево-коричневый заголовок */
-  margin-bottom: 15px;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 16px;
+  font-weight: 600;
 }
 
 .package .price {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #5a4e40; /* Цена в том же цвете */
-  margin: 15px 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 16px 0;
 }
 
 .package p {
   color: #555;
-  font-size: 1rem;
-}
-
-/* Блок УТП — "Почему выбирают нас" */
-.usp-list {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 0 20px;
-  list-style: none;
-  text-align: left;
-}
-
-.usp-list li {
-  background: #faf8f3;
-  margin: 12px 0;
-  padding: 18px 20px;
-  border-left: 4px solid #5a4e40;
-  border-radius: 0 10px 10px 0;
   font-size: 1.05rem;
-  color: #333;
-  font-weight: 500;
+  line-height: 1.6;
+  font-weight: 300;
 }
 
-/* Карусель */
+/* === Карусель === */
 .carousel {
   position: relative;
-  max-width: 1300px;
-  margin: 40px auto;
+  max-width: 900px;
+  margin: 50px auto;
   overflow: hidden;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-.carousel-inner {
-  display: flex;
-  transition: transform 0.6s ease-in-out;
-}
-
-.carousel-item {
-  min-width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
 }
 
 .carousel-item img {
   width: 100%;
-  height: 450px;
+  height: 500px;
   object-fit: cover;
   display: block;
 }
 
-.carousel-controls {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
-  z-index: 10;
-  padding: 0 20px;
-}
-
 .carousel-controls button {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   border: none;
-  width: 50px;
-  height: 50px;
-  font-size: 1.5rem;
+  width: 56px;
+  height: 56px;
+  font-size: 1.6rem;
   cursor: pointer;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: background 0.3s;
 }
 
@@ -203,16 +198,14 @@ section {
   background: white;
 }
 
-/* Калькулятор + форма */
+/* === Форма и калькулятор === */
 #calculator-section {
-  background:  rgba(255, 255, 255, 0.5);
+  background: transparent;
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
-  align-items: flex-start;
-  padding: 70px 20px;
-  width: 100%;
-  max-width: 1300px;
+  gap: 60px;
+  padding: 100px 20px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -220,18 +213,10 @@ section {
 .calc-group {
   flex: 1;
   min-width: 320px;
-  background: #faf8f3;
-  padding: 35px;
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
-}
-
-.form-group h2,
-.calc-group h2 {
-  color: #5a4e40;
-  margin-bottom: 25px;
-  text-align: center;
-  font-size: 1.8rem;
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
 }
 
 input,
@@ -239,67 +224,59 @@ select,
 button {
   width: 100%;
   padding: 14px;
-  margin: 10px 0;
-  border: 1px solid #dde4ee;
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  margin: 12px 0;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-family: inherit;
+  transition: border-color 0.3s;
 }
 
 input:focus,
 select:focus {
   outline: none;
-  border-color: #5a4e40;
-  box-shadow: 0 0 0 3px rgba(90, 78, 64, 0.15);
+  border-color: var(--accent);
 }
 
 button {
-  background: #444444;
+  background: var(--button);
   color: white;
   border: none;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.1rem;
+  padding: 16px;
+  border-radius: 12px;
   transition: background 0.3s;
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
 button:hover {
-  background: #333333;
+  background: #1c1a18;
 }
 
 .result {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #5a4e40;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--accent);
   margin-top: 25px;
   text-align: center;
 }
 
-#form-result {
-  margin-top: 20px;
-  text-align: center;
-  font-weight: 600;
-}
-
-#form-result p {
-  margin: 10px 0;
-}
-
-/* Кнопка "Наверх" */
+/* === Кнопка "Наверх" === */
 #back-to-top {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 56px;
-  height: 56px;
-  background: #444444;
+  bottom: 40px;
+  right: 40px;
+  width: 60px;
+  height: 60px;
+  background: var(--button);
   color: white;
   border: none;
   border-radius: 50%;
-  font-size: 22px;
+  font-size: 24px;
   cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
@@ -315,79 +292,30 @@ button:hover {
 }
 
 #back-to-top:hover {
-  background: #333333;
+  background: #1c1a18;
   transform: translateY(-4px);
 }
 
-/* Адаптивность */
+/* === Адаптивность === */
 @media (max-width: 992px) {
-  #hero h1 {
-    font-size: 2.3rem;
-  }
-
-  .package {
-    width: 280px;
-  }
+  #hero h1 { font-size: 2.6rem; }
+  .package { width: 280px; }
 }
 
 @media (max-width: 768px) {
-  section {
-    padding: 60px 15px;
-  }
-
-  #hero h1 {
-    font-size: 2rem;
-  }
-
-  #hero p {
-    font-size: 1.1rem;
-  }
-
-  .packages {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .package {
-    width: 100%;
-    max-width: 350px;
-  }
-
-  #calculator-section {
-    flex-direction: column;
-    padding: 50px 15px;
-  }
-
-  .form-group,
-  .calc-group {
-    min-width: 100%;
-    padding: 25px;
-  }
-
-  .carousel-item img {
-    height: 350px;
-  }
-
-  #back-to-top {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-  }
+  section { padding: 80px 15px; }
+  #hero { padding: 40px 20px !important; }
+  #hero h1 { font-size: 2.2rem; }
+  .packages { flex-direction: column; align-items: center; }
+  #calculator-section { flex-direction: column; gap: 40px; }
+  .carousel-item img { height: 400px; }
 }
 
 @media (max-width: 480px) {
-  #hero h1 {
-    font-size: 1.8rem;
-  }
-
-  .scroll-btn {
-    padding: 12px 24px;
-    font-size: 1rem;
-  }
-
-  .carousel-item img {
-    height: 300px;
-  }
+  #hero h1 { font-size: 1.9rem; }
+  h2 { font-size: 1.8rem; }
+  .scroll-btn { padding: 14px 30px; font-size: 1.05rem; }
+  .carousel-item img { height: 320px; }
 }
 
 /* === Динамический фон === */
@@ -401,6 +329,6 @@ button:hover {
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1;
-  opacity: 0.85;
+  opacity: 0.88;
   transition: background-image 1.2s ease-in-out;
 }

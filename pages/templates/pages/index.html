@@ -5,7 +5,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Этажи.Ремонт</title>
+  <!-- Шрифт Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon"> <!-- опционально -->
 </head>
 <body>
   <!-- Динамический фон -->
@@ -14,12 +17,12 @@
   <!-- Секция 1: О компании -->
   <section id="hero">
     <div class="container fade-in">
-      <h1>ЭТАЖИ РЕМОНТ</h1>
-      <p>
-        Вы заранее знаете итоговую стоимость. 
-        Гарантия 12 месяцев. 
-        Материалы закупаем и доставляем сами.
-      </p>
+      <!-- Логотип (раскомментируйте, если есть) -->
+      <!-- <img src="{% static 'images/logo.png' %}" alt="Этажи.Ремонт" style="height: 80px; margin-bottom: 24px;"> -->
+
+      <!-- Или оставьте текст с новым стилем -->
+      <h1>ЭТАЖИ.РЕМОНТ</h1>
+      <p>Вы заранее знаете итоговую стоимость. Гарантия 12 месяцев. Материалы закупаем и доставляем сами.</p>
 
       <a href="#calculator-section" class="scroll-btn">Оставить заявку</a>
 
@@ -39,12 +42,12 @@
           <div class="package">
             <h3>Премиум</h3>
             <div class="price">от 35 000 ₽/м²</div>
-            <p>Индивидуальный дизайн, авторский надзор, материалы премиум-класса.</p>
+            <p>Индивидualный дизайн, авторский надзор, материалы премиум-класса.</p>
           </div>
           <div class="package">
             <h3>Санузел под ключ</h3>
             <div class="price">от 250 000 ₽</div>
-            <p>Ремонт сан узла под ключ с полной комплектовкой всеми материалами и сантехникой</p>
+            <p>Ремонт санузла под ключ с полной комплектацией материалов и сантехники.</p>
           </div>
         </div>
       </div>
@@ -52,10 +55,10 @@
       <div class="fade-in">
         <h2>Примеры наших работ</h2>
         <div class="carousel">
-          <div class="carousel-inner" id="carousel">
-            <div class="carousel-item"><img src="{% static 'images/BORL8992-HDR.jpg' %}" alt="Пожарных и спасателей"><div class="caption">Пожарных и спасателей, 3-комнатная, 109 м²</div></div>
-            <div class="carousel-item"><img src="{% static 'images/BORL9084-HDR.jpg' %}" alt="Пожарных и спасателей"><div class="caption">Пожарных и спасателей, 3-комнатная, 109 м²</div></div>
-            <div class="carousel-item"><img src="{% static 'images/BORL9160-HDR.jpg' %}" alt="Пожарных и спасателей"><div class="caption">Пожарных и спасателей, 3-комнатная, 109 м²</div></div>
+          <div class="carousel-inner">
+            <div class="carousel-item"><img src="{% static 'images/BORL8992-HDR.jpg' %}" alt="Интерьер"></div>
+            <div class="carousel-item"><img src="{% static 'images/BORL9084-HDR.jpg' %}" alt="Интерьер"></div>
+            <div class="carousel-item"><img src="{% static 'images/BORL9160-HDR.jpg' %}" alt="Интерьер"></div>
           </div>
           <div class="carousel-controls">
             <button onclick="prevSlide()">❮</button>
@@ -89,7 +92,7 @@
         <input type="number" id="area" min="20" value="50" oninput="calculate()">
         <label>Пакет ремонта:</label>
         <select id="calc-package" onchange="calculate()">
-          <option value="15000">Эконом — от 15 000 ₽/м²</option>
+          <option value="20000">Эконом — от 20 000 ₽/м²</option>
           <option value="22000" selected>Комфорт — от 22 000 ₽/м²</option>
           <option value="35000">Премиум — от 35 000 ₽/м²</option>
         </select>
@@ -102,30 +105,7 @@
   <!-- Кнопка "Наверх" -->
   <button id="back-to-top" title="Наверх">↑</button>
 
-  <!-- Динамический фон (JS) -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const bgImages = [
-        "{% static 'images/bg1.jpg' %}",
-        "{% static 'images/bg2.jpg' %}",
-        "{% static 'images/bg3.jpg' %}"
-      ];
-      let currentIndex = 0;
-      const bgElement = document.getElementById('dynamic-bg');
-
-      if (bgElement && bgImages.length > 0) {
-        function changeBackground() {
-          bgElement.style.backgroundImage = `url(${bgImages[currentIndex]})`;
-          currentIndex = (currentIndex + 1) % bgImages.length;
-        }
-
-        changeBackground();
-        setInterval(changeBackground, 7000);
-      }
-    });
-  </script>
-
-  <!-- Единственный вызов JS -->
+  <!-- JS -->
   <script src="{% static 'js/main.js' %}" defer></script>
 </body>
 </html>

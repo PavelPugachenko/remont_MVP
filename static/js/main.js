@@ -13,10 +13,22 @@ document.addEventListener('DOMContentLoaded', () => {
       bgElement.style.backgroundImage = `url(${bgImages[currentIndex]})`;
       currentIndex = (currentIndex + 1) % bgImages.length;
     }
-
     changeBackground();
-    setInterval(changeBackground, 7000);
+    setInterval(changeBackground, 8000);
   }
+
+  // === Анимация появления ===
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('appear');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => {
+    observer.observe(el);
+  });
 
   // === Карусель ===
   let currentSlide = 0;
@@ -27,17 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
         slide.style.display = i === index ? 'block' : 'none';
       });
     }
-
     window.nextSlide = () => {
       currentSlide = (currentSlide + 1) % slides.length;
       showSlide(currentSlide);
     };
-
     window.prevSlide = () => {
       currentSlide = (currentSlide - 1 + slides.length) % slides.length;
       showSlide(currentSlide);
     };
-
     showSlide(currentSlide);
   }
 
@@ -49,17 +58,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('total').textContent = total.toLocaleString('ru-RU');
   };
 
-  // === Отправка формы ===
+  // === Форма ===
   window.submitForm = () => {
     const name = document.getElementById('name').value;
     const phone = document.getElementById('phone').value;
     const resultDiv = document.getElementById('form-result');
     if (name && phone) {
       resultDiv.textContent = 'Спасибо! Мы скоро свяжемся с вами.';
-      resultDiv.style.color = 'green';
+      resultDiv.style.color = '#5e5446';
     } else {
       resultDiv.textContent = 'Пожалуйста, заполните все поля.';
-      resultDiv.style.color = 'red';
+      resultDiv.style.color = '#d32f2f';
     }
   };
 
@@ -67,32 +76,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const backToTopButton = document.getElementById('back-to-top');
   if (backToTopButton) {
     const toggleButton = () => {
-      backToTopButton.style.display = window.scrollY > 300 ? 'block' : 'none';
+      backToTopButton.classList.toggle('show', window.scrollY > 400);
     };
     window.addEventListener('scroll', toggleButton);
     backToTopButton.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    toggleButton(); // проверить при загрузке
+    toggleButton();
   }
 
-  // Запустить калькулятор
-  if (document.getElementById('area')) {
-    calculate();
-  }
-});
-
-// Анимация появления при скролле
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('appear');
-    }
-  });
-}, {
-  threshold: 0.1
-});
-
-document.querySelectorAll('.fade-in').forEach(el => {
-  observer.observe(el);
+  // Запуск калькулятора
+  if (document.getElementById('area')) calculate();
 });
