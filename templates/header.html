@@ -1,0 +1,23 @@
+{% load static %}
+
+<header class="site-header">
+    <nav class="main-menu">
+        <div class="menu-container">
+            <ul class="menu-list">
+                <li><a href="#hero" class="menu-link" onclick="smoothScrollTo('hero')">О нас</a></li>
+                <li><a href="#calculator-section" class="menu-link" onclick="smoothScrollTo('calculator-section')">Услуги</a></li>
+                <li><a href="#" class="menu-link" onclick="smoothScrollTo('portfolio')">Примеры работ</a></li>
+                <li><a href="#calculator-section" class="menu-link" onclick="smoothScrollTo('calculator-section')">Оставить заявку</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<script>
+function smoothScrollTo(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+</script>

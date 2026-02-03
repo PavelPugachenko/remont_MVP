@@ -4,7 +4,7 @@ from .models import RepairRequest
 import json
 
 def home(request):
-    return render(request, 'pages/index.html')
+    return render(request, 'index.html')
 
 def submit_form(request):
     if request.method == "POST":
