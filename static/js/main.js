@@ -1,10 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Динамический фон
-  const bgImages = [
-    "/static/images/bg1.jpg",
-    "/static/images/bg2.jpg",
-    "/static/images/bg3.jpg"
-  ];
+  const bgImages = window.bgImages || [];
   let currentIndex = 0;
   const bgElement = document.getElementById('dynamic-bg');
 
@@ -65,7 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultDiv = document.getElementById('form-result');
     if (name && phone) {
       resultDiv.textContent = 'Спасибо! Мы скоро свяжемся с вами.';
-      resultDiv.style.color = '#5a4e40';
+      resultDiv.style.color = '#27ae60';
+      
+      // Очистка формы
+      document.getElementById('name').value = '';
+      document.getElementById('phone').value = '';
+      document.getElementById('package-select').value = '';
     } else {
       resultDiv.textContent = 'Пожалуйста, заполните все поля.';
       resultDiv.style.color = 'red';

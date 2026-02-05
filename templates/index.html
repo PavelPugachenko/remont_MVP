@@ -11,58 +11,132 @@
   <!-- Динамический фон -->
   <div id="dynamic-bg"></div>
 
+  <!-- Шапка -->
   {% include 'header.html' %}
 
-  <!-- Секция 1: О компании -->
-  <section id="hero" class="fade-in">
+  <!-- Блок 1: О компании -->
+  <section id="about" class="section fade-in">
     <div class="container">
-      <p>Вы заранее знаете итоговую стоимость. Гарантия 12 месяцев. Материалы закупаем и доставляем сами.</p>
-
-      <div class="fade-in">
-        <h2>Наши пакеты ремонта</h2>
-        <div class="packages">
-          <div class="package">
-            <h3>Эконом</h3>
-            <div class="price">от 20 000 ₽/м²</div>
-            <p>Базовые материалы, чистовая отделка, фиксированная смета.</p>
-          </div>
-          <div class="package">
-            <h3>Комфорт</h3>
-            <div class="price">от 22 000 ₽/м²</div>
-            <p>Дизайн-проект в подарок, улучшенные материалы, гарантия 1 год.</p>
-          </div>
-          <div class="package">
-            <h3>Премиум</h3>
-            <div class="price">от 35 000 ₽/м²</div>
-            <p>Индивидуальный дизайн, авторский надзор, материалы премиум-класса.</p>
-          </div>
-          <div class="package">
-            <h3>Санузел под ключ</h3>
-            <div class="price">от 250 000 ₽</div>
-            <p>Ремонт санузла под ключ с полной комплектацией материалов и сантехники.</p>
-          </div>
+      <h2 class="section-title">О компании Этажи.Ремонт</h2>
+      
+      <div class="about-content">
+        <div class="about-text">
+          <p class="about-history">
+            Мы работаем на рынке ремонтных услуг с 2018 года, помогая клиентам превращать их мечты о комфортном жилье в реальность. За это время мы выполнили более 300 проектов и заслужили доверие сотен семей.
+          </p>
+          <p class="about-mission">
+            Наша миссия — сделать ремонт предсказуемым, качественным и приятным процессом. Мы ценим каждого клиента и стремимся превзойти ожидания в каждом проекте.
+          </p>
         </div>
-      </div>
-  <a href="#calculator-section" class="header-btn">Оставить заявку</a>
-      <div class="fade-in">
-        <h2>Примеры наших работ</h2>
-        <div class="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item"><img src="{% static 'images/BORL8992-HDR.jpg' %}" alt="Интерьер"></div>
-            <div class="carousel-item"><img src="{% static 'images/BORL9084-HDR.jpg' %}" alt="Интерьер"></div>
-            <div class="carousel-item"><img src="{% static 'images/BORL9160-HDR.jpg' %}" alt="Интерьер"></div>
+
+        <div class="usp-grid">
+          <div class="usp-item">
+            <div class="usp-icon">🏠</div>
+            <h3>Гарантия 12 месяцев</h3>
+            <p>Мы уверены в качестве наших работ и предоставляем официальную гарантию на весь ремонт.</p>
           </div>
-          <div class="carousel-controls">
-            <button onclick="prevSlide()">❮</button>
-            <button onclick="nextSlide()">❯</button>
+          <div class="usp-item">
+            <div class="usp-icon">💰</div>
+            <h3>Фиксированная цена</h3>
+            <p>Никаких скрытых платежей и неожиданных расходов. Цена оговорена в договоре и не меняется.</p>
           </div>
+          <div class="usp-item">
+            <div class="usp-icon">⏱️</div>
+            <h3>Соблюдение сроков</h3>
+            <p>Работаем по чёткому графику и завершаем проекты в установленные срока.</p>
+          </div>
+          <div class="usp-item">
+            <div class="usp-icon">🎨</div>
+            <h3>Дизайн-проект в подарок</h3>
+            <p>При заказе комплексного ремонта получите дизайн-проект бесплатно.</p>
+          </div>
+    <div class="usp-item">
+    <div class="usp-icon">🧹</div>
+    <h3>Клининг в подарок</h3>
+    <p>После завершения ремонта проводим профессиональную уборку помещения.</p>
+  </div>
+  <div class="usp-item">
+    <div class="usp-icon">🛡️</div>
+    <h3>Страхование ремонта</h3>
+    <p>Все работы застрахованы — ваши деньги и имущество под надёжной защитой.</p>
+  </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Секция 2: Калькулятор + форма -->
-  <section id="calculator-section" class="fade-in">
+  <!-- Блок 2: Пакеты -->
+  <section id="packages" class="section fade-in">
+    <div class="container">
+      <h2 class="section-title">Наши пакеты ремонта</h2>
+      
+      <div class="packages">
+        <div class="package">
+          <h3>Эконом</h3>
+          <div class="price">от 20 000 ₽/м²</div>
+          <ul class="package-features">
+            <li>Базовые материалы</li>
+            <li>Чистовая отделка</li>
+            <li>Фиксированная смета</li>
+            <li>Черновая отделка</li>
+          </ul>
+        </div>
+        <div class="package package-popular">
+          <div class="package-badge">Популярный</div>
+          <h3>Комфорт</h3>
+          <div class="price">от 22 000 ₽/м²</div>
+          <ul class="package-features">
+            <li>Дизайн-проект в подарок</li>
+            <li>Улучшенные материалы</li>
+            <li>Гарантия 1 год</li>
+            <li>Полный ремонт под ключ</li>
+          </ul>
+        </div>
+        <div class="package">
+          <h3>Премиум</h3>
+          <div class="price">от 35 000 ₽/м²</div>
+          <ul class="package-features">
+            <li>Индивидуальный дизайн</li>
+            <li>Авторский надзор</li>
+            <li>Материалы премиум-класса</li>
+            <li>Гарантия 24 месяца</li>
+          </ul>
+        </div>
+        <div class="package">
+          <h3>Санузел под ключ</h3>
+          <div class="price">от 250 000 ₽</div>
+          <ul class="package-features">
+            <li>Полная комплектация</li>
+            <li>Сантехника включена</li>
+            <li>Под ключ за 2 недели</li>
+            <li>Гарантия 12 месяцев</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Блок 3: Примеры работ -->
+  <section id="portfolio" class="section fade-in">
+    <div class="container">
+      <h2 class="section-title">Примеры наших работ</h2>
+      
+      <div class="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item"><img src="{% static 'images/BORL8992-HDR.jpg' %}" alt="Интерьер"></div>
+          <div class="carousel-item"><img src="{% static 'images/BORL9084-HDR.jpg' %}" alt="Интерьер"></div>
+          <div class="carousel-item"><img src="{% static 'images/BORL9160-HDR.jpg' %}" alt="Интерьер"></div>
+        </div>
+        <div class="carousel-controls">
+          <button onclick="prevSlide()">❮</button>
+          <button onclick="nextSlide()">❯</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Блок 4: Калькулятор + форма -->
+  <section id="calculator" class="section fade-in">
     <div class="container calculator-form-container">
       <div class="calc-group">
         <h2>Калькулятор ремонта</h2>
@@ -74,19 +148,20 @@
           <option value="22000" selected>Комфорт — от 22 000 ₽/м²</option>
           <option value="35000">Премиум — от 35 000 ₽/м²</option>
         </select>
-        <div class="result">Итого: <span id="total">1 100 000</span></div>
+        <div class="result">Итого: <span id="total">1 100 000</span> ₽</div>
         <small>* Расчёт ориентировочный. Точную стоимость уточнит замерщик.</small>
       </div>
 
       <div class="form-group">
         <h2>Оставьте заявку</h2>
-        <input type="text" id="name" placeholder="Ваше имя" required>
-        <input type="tel" id="phone" placeholder="Телефон" required>
+        <input type="text" id="name" placeholder="Ваше имя *" required>
+        <input type="tel" id="phone" placeholder="Телефон *" required>
         <select id="package-select" required>
           <option value="">Выберите пакет</option>
           <option value="econom">Эконом</option>
           <option value="comfort">Комфорт</option>
           <option value="premium">Премиум</option>
+          <option value="bathroom">Санузел под ключ</option>
         </select>
         <button onclick="submitForm()">Отправить заявку</button>
         <div id="form-result"></div>
@@ -97,7 +172,15 @@
   <!-- Кнопка "Наверх" -->
   <button id="back-to-top" title="Наверх">↑</button>
 
+   <script>
+    window.bgImages = [
+      "{% static 'images/bg1.jpg' %}",
+      "{% static 'images/bg2.jpg' %}",
+      "{% static 'images/bg3.jpg' %}"
+    ];
+  </script>
+
   <!-- JS -->
   <script src="{% static 'js/main.js' %}" defer></script>
 </body>
-</html> 
+</html>
