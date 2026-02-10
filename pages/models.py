@@ -6,6 +6,7 @@ class RepairRequest(models.Model):
         ('comfort', 'Комфорт'),
         ('premium', 'Премиум'),
         ('bathroom', 'Санузел под ключ'),
+        ('consultation', 'Консультация'),
     ]
 
     name = models.CharField("Имя", max_length=100)

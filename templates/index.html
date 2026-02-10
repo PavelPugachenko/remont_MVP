@@ -14,10 +14,12 @@
   <!-- Шапка -->
   {% include 'header.html' %}
 
+  <main id="main-content">
+
   <!-- Блок 1: О компании -->
   <section id="about" class="section fade-in">
     <div class="container">
-      <img src="{% static 'images/logo1.png' %}" alt="Этажи.Ремонт" class="header-logo" style="width: 500px; height: auto; display: block; margin: 0 auto;">
+      <img src="{% static 'images/logo1.png' %}" alt="Этажи.Ремонт" class="hero-logo" width="500" height="150" loading="eager" decoding="async">
       
       <div class="about-content">
         <div class="about-text">
@@ -43,7 +45,7 @@
           <div class="usp-item">
             <div class="usp-icon">⏱️</div>
             <h3>Соблюдение сроков</h3>
-            <p>Работаем по чёткому графику и завершаем проекты в установленные срока.</p>
+            <p>Работаем по чёткому графику и завершаем проекты в установленные сроки.</p>
           </div>
           <div class="usp-item">
             <div class="usp-icon">🎨</div>
@@ -123,13 +125,13 @@
       
       <div class="carousel">
         <div class="carousel-inner">
-          <div class="carousel-item"><img src="{% static 'images/BORL8992-HDR.jpg' %}" alt="Интерьер"></div>
-          <div class="carousel-item"><img src="{% static 'images/BORL9084-HDR.jpg' %}" alt="Интерьер"></div>
-          <div class="carousel-item"><img src="{% static 'images/BORL9160-HDR.jpg' %}" alt="Интерьер"></div>
+          <div class="carousel-item"><img src="{% static 'images/BORL8992-HDR.jpg' %}" alt="Гостиная, современный интерьер" width="800" height="450" loading="lazy" decoding="async"></div>
+          <div class="carousel-item"><img src="{% static 'images/BORL9084-HDR.jpg' %}" alt="Кухня, современный интерьер" width="800" height="450" loading="lazy" decoding="async"></div>
+          <div class="carousel-item"><img src="{% static 'images/BORL9160-HDR.jpg' %}" alt="Спальня, современный интерьер" width="800" height="450" loading="lazy" decoding="async"></div>
         </div>
         <div class="carousel-controls">
-          <button onclick="prevSlide()">❮</button>
-          <button onclick="nextSlide()">❯</button>
+          <button type="button" aria-label="Предыдущий слайд" onclick="prevSlide()">❮</button>
+          <button type="button" aria-label="Следующий слайд" onclick="nextSlide()">❯</button>
         </div>
       </div>
     </div>
@@ -140,9 +142,9 @@
     <div class="container calculator-form-container">
       <div class="calc-group">
         <h2>Калькулятор ремонта</h2>
-        <label>Площадь квартиры (м²):</label>
-        <input type="number" id="area" min="20" value="50" oninput="calculate()">
-        <label>Пакет ремонта:</label>
+        <label for="area" class="field-label">Площадь квартиры (м²):</label>
+        <input type="number" id="area" min="20" step="1" value="50" inputmode="numeric" oninput="calculate()">
+        <label for="calc-package" class="field-label">Пакет ремонта:</label>
         <select id="calc-package" onchange="calculate()">
           <option value="20000">Эконом — от 20 000 ₽/м²</option>
           <option value="22000" selected>Комфорт — от 22 000 ₽/м²</option>
@@ -152,11 +154,17 @@
         <small>* Расчёт ориентировочный. Точную стоимость уточнит замерщик.</small>
       </div>
 
-      <form class="form-group" id="lead-form" onsubmit="submitForm(event)">
+      <form class="form-group" id="lead-form">
         <h2>Оставьте заявку</h2>
         {% csrf_token %}
-        <input type="text" id="name" name="name" placeholder="Ваше имя *" required>
-        <input type="tel" id="phone" name="phone" placeholder="Телефон *" required>
+        <label for="name" class="field-label">Ваше имя *</label>
+        <input type="text" id="name" name="name" placeholder="Например, Анна" autocomplete="name" required>
+
+        <label for="phone" class="field-label">Телефон *</label>
+        <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" aria-describedby="phone-hint" required>
+        <small class="field-hint" id="phone-hint">Мы позвоним только по вашему обращению.</small>
+
+        <label for="package-select" class="field-label">Пакет ремонта *</label>
         <select id="package-select" name="package" required>
           <option value="">Выберите пакет</option>
           <option value="econom">Эконом</option>
@@ -165,13 +173,86 @@
           <option value="bathroom">Санузел под ключ</option>
         </select>
         <button type="submit">Отправить заявку</button>
-        <div id="form-result"></div>
+        <div id="form-result" role="status" aria-live="polite"></div>
       </form>
     </div>
   </section>
 
+  <!-- Блок 5: Контакты -->
+  <section id="contacts" class="section fade-in">
+    <div class="container">
+      <h2 class="section-title">Контакты</h2>
+      <div class="contacts-grid">
+        <div class="contact-card">
+          <h3>Адрес компании</h3>
+          <p class="contact-address">г. Тюмень</p>
+          <p class="contact-note">Точный адрес уточним по телефону и отправим удобный маршрут.</p>
+
+          <div class="social-block">
+            <p class="social-title">Мы в соцсетях</p>
+            <div class="social-links">
+              <a class="social-link" href="https://vk.com/" target="_blank" rel="noopener" aria-label="ВКонтакте">
+                <img src="https://cdn.simpleicons.org/vk" alt="" width="20" height="20" loading="lazy" decoding="async">
+                <span>VK</span>
+              </a>
+              <a class="social-link" href="https://t.me/" target="_blank" rel="noopener" aria-label="Telegram">
+                <img src="https://cdn.simpleicons.org/telegram" alt="" width="20" height="20" loading="lazy" decoding="async">
+                <span>Telegram</span>
+              </a>
+              <a class="social-link" href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
+                <img src="https://cdn.simpleicons.org/whatsapp" alt="" width="20" height="20" loading="lazy" decoding="async">
+                <span>WhatsApp</span>
+              </a>
+              <a class="social-link" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+                <img src="https://cdn.simpleicons.org/instagram" alt="" width="20" height="20" loading="lazy" decoding="async">
+                <span>Instagram</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-card">
+          <div class="map-embed" aria-hidden="false">
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?ll=65.533%2C57.150&z=12&text=%D0%A2%D1%8E%D0%BC%D0%B5%D0%BD%D1%8C&mode=search"
+              title="Карта: Тюмень"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <a class="map-link" href="https://yandex.ru/maps/?text=%D0%A2%D1%8E%D0%BC%D0%B5%D0%BD%D1%8C" target="_blank" rel="noopener">
+            Открыть в Яндекс Картах
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Кнопка "Наверх" -->
-  <button id="back-to-top" title="Наверх">↑</button>
+  <button id="back-to-top" title="Наверх" aria-label="Наверх">↑</button>
+
+  <!-- Всплывающее окно консультации -->
+  <div class="modal" id="consultation-modal" role="dialog" aria-modal="true" aria-labelledby="consultation-title" aria-hidden="true">
+    <div class="modal-overlay" data-modal-close></div>
+    <div class="modal-content" role="document">
+      <button class="modal-close" type="button" data-modal-close aria-label="Закрыть окно">×</button>
+      <h2 id="consultation-title">Получить консультацию</h2>
+      <p class="modal-text">Оставьте имя и телефон — перезвоним в удобное время.</p>
+      <form class="modal-form" id="popup-form">
+        {% csrf_token %}
+        <label for="popup-name" class="field-label">Ваше имя *</label>
+        <input type="text" id="popup-name" name="name" placeholder="Например, Анна" autocomplete="name" required>
+
+        <label for="popup-phone" class="field-label">Телефон *</label>
+        <input type="tel" id="popup-phone" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" required>
+        <input type="hidden" name="package" value="consultation">
+
+        <button type="submit">Получить консультацию</button>
+        <div class="form-result" id="popup-result" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
 
    <script>
     window.bgImages = [
@@ -180,6 +261,8 @@
       "{% static 'images/bg3.jpg' %}"
     ];
   </script>
+
+  </main>
 
   <!-- JS -->
   <script src="{% static 'js/main.js' %}" defer></script>

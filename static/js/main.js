@@ -26,6 +26,40 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 
+  // Мобильное меню
+  const menuToggle = document.querySelector('.menu-toggle');
+  const menuList = document.querySelector('.menu-list');
+  if (menuToggle && menuList) {
+    const setMenuState = (isOpen) => {
+      menuList.classList.toggle('is-open', isOpen);
+      menuToggle.classList.toggle('is-open', isOpen);
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
+    };
+
+    menuToggle.addEventListener('click', () => {
+      setMenuState(!menuList.classList.contains('is-open'));
+    });
+
+    menuList.addEventListener('click', (event) => {
+      if (event.target && event.target.matches('a')) {
+        setMenuState(false);
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!menuList.contains(event.target) && !menuToggle.contains(event.target)) {
+        setMenuState(false);
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setMenuState(false);
+      }
+    });
+  }
+
   // Карусель
   let currentSlide = 0;
   const slides = document.querySelectorAll('.carousel-item');
@@ -55,26 +89,32 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Форма
-  window.submitForm = async (event) => {
-    if (event) event.preventDefault();
+  let closeConsultationModal = null;
 
-    const nameInput = document.getElementById('name');
-    const phoneInput = document.getElementById('phone');
-    const packageSelect = document.getElementById('package-select');
-    const resultDiv = document.getElementById('form-result');
-    const form = document.getElementById('lead-form');
-    const csrfInput = form ? form.querySelector('input[name="csrfmiddlewaretoken"]') : null;
+  const submitLeadForm = async (form) => {
+    if (!form) return;
+
+    const nameInput = form.querySelector('input[name="name"]');
+    const phoneInput = form.querySelector('input[name="phone"]');
+    const packageField = form.querySelector('[name="package"]');
+    const resultDiv = form.querySelector('.form-result') || form.querySelector('#form-result');
+    const csrfInput = form.querySelector('input[name="csrfmiddlewaretoken"]');
     const csrfToken = csrfInput ? csrfInput.value : '';
 
     const name = nameInput ? nameInput.value.trim() : '';
     const phone = phoneInput ? phoneInput.value.trim() : '';
-    const packageValue = packageSelect ? packageSelect.value : '';
+    const packageValue = packageField ? packageField.value : '';
 
-    if (!name || !phone || !packageValue) {
-      resultDiv.textContent = 'Пожалуйста, заполните все поля.';
-      resultDiv.style.color = 'red';
+    if (!name || !phone || (packageField && !packageValue)) {
+      if (resultDiv) {
+        resultDiv.textContent = 'Пожалуйста, заполните все поля.';
+        resultDiv.style.color = 'red';
+      }
       return;
     }
+
+    const payload = { name, phone };
+    if (packageField) payload.package = packageValue;
 
     try {
       const response = await fetch('/submit/', {
@@ -83,31 +123,52 @@ document.addEventListener('DOMContentLoaded', () => {
           'Content-Type': 'application/json',
           'X-CSRFToken': csrfToken
         },
-        body: JSON.stringify({
-          name,
-          phone,
-          package: packageValue
-        })
+        body: JSON.stringify(payload)
       });
 
       const data = await response.json().catch(() => ({}));
       if (response.ok && data.status === 'ok') {
-        resultDiv.textContent = 'Спасибо! Мы скоро свяжемся с вами.';
-        resultDiv.style.color = '#27ae60';
+        if (resultDiv) {
+          resultDiv.textContent = 'Спасибо! Мы скоро свяжемся с вами.';
+          resultDiv.style.color = '#27ae60';
+        }
 
-        // Очистка формы
-        nameInput.value = '';
-        phoneInput.value = '';
-        packageSelect.value = '';
+        if (nameInput) nameInput.value = '';
+        if (phoneInput) phoneInput.value = '';
+        if (packageField && packageField.tagName === 'SELECT') packageField.value = '';
+
+        if (form.id === 'popup-form' && closeConsultationModal) {
+          setTimeout(() => closeConsultationModal(), 900);
+        }
       } else {
-        resultDiv.textContent = 'Не удалось отправить заявку. Попробуйте ещё раз.';
-        resultDiv.style.color = 'red';
+        if (resultDiv) {
+          resultDiv.textContent = 'Не удалось отправить заявку. Попробуйте ещё раз.';
+          resultDiv.style.color = 'red';
+        }
       }
     } catch (error) {
-      resultDiv.textContent = 'Ошибка сети. Проверьте соединение и попробуйте снова.';
-      resultDiv.style.color = 'red';
+      if (resultDiv) {
+        resultDiv.textContent = 'Ошибка сети. Проверьте соединение и попробуйте снова.';
+        resultDiv.style.color = 'red';
+      }
     }
   };
+
+  window.submitForm = async (event) => {
+    if (event) event.preventDefault();
+    const form = event && event.target ? event.target : document.getElementById('lead-form');
+    await submitLeadForm(form);
+  };
+
+  const leadForm = document.getElementById('lead-form');
+  if (leadForm) {
+    leadForm.addEventListener('submit', submitForm);
+  }
+
+  const popupForm = document.getElementById('popup-form');
+  if (popupForm) {
+    popupForm.addEventListener('submit', submitForm);
+  }
 
   // Кнопка "Наверх"
   const backToTopButton = document.getElementById('back-to-top');
@@ -124,4 +185,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Запуск калькулятора
   if (document.getElementById('area')) calculate();
+
+  // Модальное окно консультации
+  const consultationModal = document.getElementById('consultation-modal');
+  if (consultationModal) {
+    const nameField = consultationModal.querySelector('input[name="name"]');
+    const openModal = () => {
+      consultationModal.classList.add('is-visible');
+      consultationModal.setAttribute('aria-hidden', 'false');
+      if (nameField) {
+        nameField.focus();
+      }
+    };
+
+    const closeModal = () => {
+      consultationModal.classList.remove('is-visible');
+      consultationModal.setAttribute('aria-hidden', 'true');
+    };
+
+    closeConsultationModal = closeModal;
+
+    consultationModal.querySelectorAll('[data-modal-close]').forEach((element) => {
+      element.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    setTimeout(() => {
+      if (!consultationModal.classList.contains('is-visible')) {
+        openModal();
+      }
+    }, 15000);
+  }
 });

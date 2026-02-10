@@ -1,24 +1,26 @@
 {% load static %}
 
 <header class="site-header">
-    <div class="menu-container">
+    <nav class="menu-container" aria-label="Основная навигация">
         <div class="header-logo-container">
+            <a href="#about" class="logo-link">
+                <img src="{% static 'images/logo1.png' %}" alt="Этажи.Ремонт" class="header-logo" width="200" height="60" loading="eager" decoding="async">
+            </a>
         </div>
-        <ul class="menu-list">
-            <li><a href="#about" class="menu-link" onclick="smoothScrollTo('about')">О компании</a></li>
-            <li><a href="#packages" class="menu-link" onclick="smoothScrollTo('packages')">Услуги</a></li>
-            <li><a href="#portfolio" class="menu-link" onclick="smoothScrollTo('portfolio')">Примеры работ</a></li>
-            <li><a href="#calculator" class="menu-link" onclick="smoothScrollTo('calculator')">Контакты</a></li> 
-        </ul>
-        <a href="#calculator" class="header-btn" onclick="smoothScrollTo('calculator')">Оставить заявку</a>
-    </div>
-</header>
 
-<script>
-function smoothScrollTo(elementId) {
-    const element = document.getElementById(elementId);
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-}
-</script>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Открыть меню">
+            <span class="menu-toggle-bar"></span>
+            <span class="menu-toggle-bar"></span>
+            <span class="menu-toggle-bar"></span>
+        </button>
+
+        <ul class="menu-list" id="site-menu">
+            <li><a href="#about" class="menu-link">О компании</a></li>
+            <li><a href="#packages" class="menu-link">Услуги</a></li>
+            <li><a href="#portfolio" class="menu-link">Примеры работ</a></li>
+            <li><a href="#contacts" class="menu-link">Контакты</a></li> 
+        </ul>
+
+        <a href="#calculator" class="header-btn">Оставить заявку</a>
+    </nav>
+</header>
