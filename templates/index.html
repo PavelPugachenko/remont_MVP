@@ -17,12 +17,12 @@
   <!-- Блок 1: О компании -->
   <section id="about" class="section fade-in">
     <div class="container">
-      <h2 class="section-title">О компании Этажи.Ремонт</h2>
+      <img src="{% static 'images/logo1.png' %}" alt="Этажи.Ремонт" class="header-logo" style="width: 500px; height: auto; display: block; margin: 0 auto;">
       
       <div class="about-content">
         <div class="about-text">
           <p class="about-history">
-            Мы работаем на рынке ремонтных услуг с 2018 года, помогая клиентам превращать их мечты о комфортном жилье в реальность. За это время мы выполнили более 300 проектов и заслужили доверие сотен семей.
+            Мы работаем на рынке ремонтных услуг с 2016 года, помогая клиентам превращать их мечты о комфортном жилье в реальность. За это время мы выполнили более 600 проектов и заслужили доверие сотен семей.
           </p>
           <p class="about-mission">
             Наша миссия — сделать ремонт предсказуемым, качественным и приятным процессом. Мы ценим каждого клиента и стремимся превзойти ожидания в каждом проекте.
@@ -152,20 +152,21 @@
         <small>* Расчёт ориентировочный. Точную стоимость уточнит замерщик.</small>
       </div>
 
-      <div class="form-group">
+      <form class="form-group" id="lead-form" onsubmit="submitForm(event)">
         <h2>Оставьте заявку</h2>
-        <input type="text" id="name" placeholder="Ваше имя *" required>
-        <input type="tel" id="phone" placeholder="Телефон *" required>
-        <select id="package-select" required>
+        {% csrf_token %}
+        <input type="text" id="name" name="name" placeholder="Ваше имя *" required>
+        <input type="tel" id="phone" name="phone" placeholder="Телефон *" required>
+        <select id="package-select" name="package" required>
           <option value="">Выберите пакет</option>
           <option value="econom">Эконом</option>
           <option value="comfort">Комфорт</option>
           <option value="premium">Премиум</option>
           <option value="bathroom">Санузел под ключ</option>
         </select>
-        <button onclick="submitForm()">Отправить заявку</button>
+        <button type="submit">Отправить заявку</button>
         <div id="form-result"></div>
-      </div>
+      </form>
     </div>
   </section>
 

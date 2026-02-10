@@ -25,18 +25,18 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background: rgb(255, 255, 255);)
+  background: rgb(255, 255, 255);
   backdrop-filter: blur(6px);
   z-index: 500;
   box-shadow: 0 1px 50px rgba(0, 0, 0, 0.2);
-  padding: 20px 40px;
+  padding: 10px 20px;
 }
 
 .menu-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 }
@@ -46,10 +46,10 @@ body {
 }
 
 .header-logo {
-  height: 110px;
-  max-width: 200px;
-  object-fit: contain;
-  transition: transform 0.3s ease;
+    width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .header-logo:hover {

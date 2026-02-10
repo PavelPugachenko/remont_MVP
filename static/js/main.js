@@ -55,20 +55,56 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Форма
-  window.submitForm = () => {
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
+  window.submitForm = async (event) => {
+    if (event) event.preventDefault();
+
+    const nameInput = document.getElementById('name');
+    const phoneInput = document.getElementById('phone');
+    const packageSelect = document.getElementById('package-select');
     const resultDiv = document.getElementById('form-result');
-    if (name && phone) {
-      resultDiv.textContent = 'Спасибо! Мы скоро свяжемся с вами.';
-      resultDiv.style.color = '#27ae60';
-      
-      // Очистка формы
-      document.getElementById('name').value = '';
-      document.getElementById('phone').value = '';
-      document.getElementById('package-select').value = '';
-    } else {
+    const form = document.getElementById('lead-form');
+    const csrfInput = form ? form.querySelector('input[name="csrfmiddlewaretoken"]') : null;
+    const csrfToken = csrfInput ? csrfInput.value : '';
+
+    const name = nameInput ? nameInput.value.trim() : '';
+    const phone = phoneInput ? phoneInput.value.trim() : '';
+    const packageValue = packageSelect ? packageSelect.value : '';
+
+    if (!name || !phone || !packageValue) {
       resultDiv.textContent = 'Пожалуйста, заполните все поля.';
+      resultDiv.style.color = 'red';
+      return;
+    }
+
+    try {
+      const response = await fetch('/submit/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken
+        },
+        body: JSON.stringify({
+          name,
+          phone,
+          package: packageValue
+        })
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (response.ok && data.status === 'ok') {
+        resultDiv.textContent = 'Спасибо! Мы скоро свяжемся с вами.';
+        resultDiv.style.color = '#27ae60';
+
+        // Очистка формы
+        nameInput.value = '';
+        phoneInput.value = '';
+        packageSelect.value = '';
+      } else {
+        resultDiv.textContent = 'Не удалось отправить заявку. Попробуйте ещё раз.';
+        resultDiv.style.color = 'red';
+      }
+    } catch (error) {
+      resultDiv.textContent = 'Ошибка сети. Проверьте соединение и попробуйте снова.';
       resultDiv.style.color = 'red';
     }
   };
