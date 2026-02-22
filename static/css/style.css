@@ -355,6 +355,10 @@ select:focus-visible {
 }
 
 .carousel-item {
+  display: block;
+}
+
+.carousel-item[hidden] {
   display: none;
 }
 
